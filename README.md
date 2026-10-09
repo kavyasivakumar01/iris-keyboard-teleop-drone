@@ -13,9 +13,7 @@ Click the terminal running the node first, otherwise it won't get your key press
 
 ## My understanding
 ### How the pieces fit together
-```
 Keyboard -> teleop node -> MAVROS -> ArduPilot SITL <-> Gazebo (Iris)
-```
 - **Gazebo Harmonic** is the simulator. It draws the world and handles the drone's physics.
 - **ArduPilot SITL** is the drone's flight controller software, running on my laptop instead of on real hardware. It keeps the drone stable, controls the motors and holds position. The `ardupilot_gazebo` plugin connects it to Gazebo: Gazebo sends it sensor data and it sends motor commands back.
 - **MAVROS** is the bridge. It turns ArduPilot's MAVLink messages into ROS 2 topics and services. My node only ever talks to MAVROS.
@@ -54,8 +52,6 @@ On WSL with Intel graphics, Gazebo showed a black screen at first, so I switched
 echo "export LIBGL_ALWAYS_SOFTWARE=1" >> ~/.bashrc
 ```
 
-Build the package:
-
 ```bash
 cd ~/ros2_ws/src
 git clone https://github.com/kavyasivakumar01/iris-keyboard-teleop-drone.git
@@ -67,13 +63,11 @@ source install/setup.bash
 ## Running
 Open four terminals and start them in this order, waiting for each one to finish loading.
 **Terminal 1: Gazebo**
-
 ```bash
 gz sim -v4 -r iris_runway.sdf
 ```
 Wait until the runway and `iris_with_gimbal` show up.
 **Terminal 2: ArduPilot SITL**
-
 ```bash
 cd ~/ardupilot
 Tools/autotest/sim_vehicle.py -v ArduCopter -f gazebo-iris --model JSON
